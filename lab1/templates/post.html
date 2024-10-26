@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1 class="my-5">{{ post.title }}</h1>
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <img class="img-fluid rounded" src="{{ url_for('static', filename='images/' + post.image_id) }}" alt="{{ post.title }}">
+            <p class="my-3">{{ post.text }}</p>
+        </div>
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Информация о посте</h5>
+                    <p class="card-text">
+                        <small>Автор: {{ post.author }}</small><br>
+                        <small>Дата публикации: {{ post.date.strftime('%d.%m.%Y %H:%M') }}</small>
+                    </p>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Оставьте комментарий</h5>
+                    <form>
+                        <div class="form-group">
+                            <textarea class="form-control" id="comment-text" rows="3" placeholder="Ваш комментарий"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Отправить</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Комментарии</h5>
+                    {% for comment in post.comments %}
+                        <div class="media mb-3">
+                            <div class="media-body">
+                                <h6 class="mt-0">{{ comment.author }}</h6>
+                                <p>{{ comment.text }}</p>
+                                {% if comment.replies %}
+                                    <ul class="list-unstyled ml-4">
+                                        {% for reply in comment.replies %}
+                                            <li class="media mb-2">
+                                                <div class="media-body">
+                                                    <small>{{ reply.author }}</small><br>
+                                                    <small>{{ reply.text }}</small>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
