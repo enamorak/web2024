@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="container">
+        <h1>Форма проверки</h1>
+        <form method = "POST">
+            <div class="mb-3">
+              {% if message is defined %} 
+                  <label for="phone_num" class="form-label">Проверка номера телефона</label>
+                  <input name="phone_num" type="tel" class="form-control  {{ field_class }}" id="phone_check" aria-describedby="phone_check" required>
+                  <div class="{{ class }}">
+                      {{ message }}
+                  </div>
+              {% else %}
+                  <label for="phone_num" class="form-label">Проверка номера телефона</label>
+                  <input name="phone_num" type="tel" class="form-control" id="phone_check" aria-describedby="phone_check" required>
+              {% endif %}
+
+            </div>
+            <button type="submit" class="btn btn-primary">Проверить</button>
+        </form> 
+    </div>
+{% endblock %}
+
